@@ -14,10 +14,6 @@
     <div class="box">
         <div id="qr-reader"></div>
     </div>
-
-    <div id="qr-reader-results"></div>
-
-
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         Html5Qrcode.getCameras().then(devices => {
@@ -32,11 +28,10 @@
                     },
                     (decodedText, decodedResult) => {
                         alert(decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', ''));
-                    });
+                    },
+                );
 
             }
-        }).catch(err => {
-            // handle err
         });
     </script>
 </body>
