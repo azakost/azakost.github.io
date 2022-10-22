@@ -25,7 +25,7 @@
                 var cameraId = devices[0].id;
                 const html5QrCode = new Html5Qrcode("qr-reader");
                 html5QrCode.start(
-                    { facingMode: "user" },
+                    { facingMode: "environment" },
                     {
                         fps: 10,
                         qrbox: { width: 200, height: 150 }
