@@ -5,13 +5,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flutter Azakost</title>
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="assets/css/scanner.css" rel="stylesheet">
+
+
+    <title>SmartVend</title>
 </head>
 
 <body>
-    <h1>Hello World</h1>
-    <p>I'm hosted with GitHub Pages.</p>
+    <div class="box">
 
+        <div id="qr-reader"></div>
+
+    </div>
+    <div id="qr-reader-results"></div>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+        // This method will trigger user permissions
+        Html5Qrcode.getCameras().then(devices => {
+            if (devices && devices.length) {
+                var cameraId = devices[0].id;
+                const html5QrCode = new Html5Qrcode("qr-reader");
+                html5QrCode.start(
+                    { facingMode: "user" },
+                    {
+                        fps: 10,
+                        qrbox: { width: 200, height: 150 }
+                    },
+                    (decodedText, decodedResult) => {
+                        alert(decodedText);
+                    });
+
+            }
+        }).catch(err => {
+            // handle err
+        });
+    </script>
 </body>
 
 </html>
