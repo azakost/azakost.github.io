@@ -20,7 +20,6 @@
 
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
-        // This method will trigger user permissions
         Html5Qrcode.getCameras().then(devices => {
             if (devices && devices.length) {
                 var cameraId = devices[0].id;
