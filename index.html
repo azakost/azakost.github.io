@@ -12,11 +12,12 @@
 
 <body>
     <div class="box">
-
         <div id="qr-reader"></div>
-
     </div>
+
     <div id="qr-reader-results"></div>
+
+
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         // This method will trigger user permissions
@@ -31,7 +32,7 @@
                         qrbox: { width: 200, height: 200 }
                     },
                     (decodedText, decodedResult) => {
-                        alert(decodedText);
+                        alert(decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', ''));
                     });
 
             }
