@@ -11,9 +11,11 @@
 </head>
 
 <body>
+    <h4>Чтобы узнать контакты владельца, наведите камеру на Kaspi QR аппарата</h4>
     <div class="box">
         <div id="qr-reader"></div>
     </div>
+
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
         Html5Qrcode.getCameras().then(devices => {
@@ -27,7 +29,14 @@
                         qrbox: { width: 200, height: 200 }
                     },
                     (decodedText, decodedResult) => {
-                        alert(decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', ''));
+                        var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + $uuid + "/");
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                console.log(xhr.responseText);
+                            }
+                        };
                     },
                 );
 
