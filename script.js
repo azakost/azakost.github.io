@@ -23,14 +23,14 @@ function showModal(decodedText) {
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-
+            alert(xhr.responseText);
             let data = JSON.parse(xhr.responseText);
 
             loader.classList.add("d-none");
             contact.classList.remove("d-none");
             vendID.innerHTML = data.vending_id;
-            phone.href = "tel:+7" + data.support_phone;
-            whatsapp.href = "https://wa.me/7" + data.support_phone;
+            phone.href = "tel:+" + data.support_phone;
+            whatsapp.href = "https://wa.me/" + data.support_phone;
         }
     };
 
