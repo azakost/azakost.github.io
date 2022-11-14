@@ -71,16 +71,25 @@
                         onclick="closeModal()"></button>
                 </div>
                 <div class="modal-body">
-                    <h3>Аппарат №<span id="vending_id"></span></h3>
 
-                    <br>
-                    <a href="" id="phone" class="btn btn-success"><i class='bx bx-phone-call'></i>
-                        Позвонить
-                    </a>
-                    <br>
-                    <br>
-                    <a href="" id="whatsapp" class="btn btn-success"><i class='bx bxl-whatsapp'></i> Написать на
-                        WhatsApp</a>
+                    <div id="loader" class="d-flex aligns-items-center justify-content-center" style="padding: 150px;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
+                    <div class="d-none" id="contacts">
+                        <h5>Аппарат №<span id="vending_id"></span></h5>
+                        <br>
+                        <a href="" id="phone" class="btn btn-success"><i class='bx bx-phone-call'></i>
+                            Позвонить
+                        </a>
+                        <br>
+                        <br>
+                        <a href="" id="whatsapp" class="btn btn-success">
+                            <i class='bx bxl-whatsapp'></i> Написать на WhatsApp</a>
+                    </div>
+
 
                 </div>
                 <div class="modal-footer">SmartVend.kz</div>
