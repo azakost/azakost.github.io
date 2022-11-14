@@ -15,16 +15,17 @@ let config = {
 
 
 function showModal(decodedText) {
+    html5QrCode.stop();
     contact.classList.add("d-none");
     loader.classList.remove("d-none");
     modal.classList.remove("d-none");
     var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
-    alert(uuid);
+    console.log(uuid);
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            alert(xhr.responseText);
+            console.log('dddd');
             let data = JSON.parse(xhr.responseText);
 
             loader.classList.add("d-none");
@@ -34,22 +35,28 @@ function showModal(decodedText) {
             whatsapp.href = "https://wa.me/" + data.support_phone;
         }
     };
+    xhr.send();
 
 
 }
 
+function startScanner() {
+    html5QrCode.start(
+        { facingMode: "environment" },
+        config,
+        (decodedText, decodedResult) => showModal(decodedText),
+    );
+}
+
 function closeModal() {
+    startScanner();
     modal.classList.add("d-none");
 }
 
 
 function onPermissionSuccess(devices) {
     if (devices && devices.length) {
-        html5QrCode.start(
-            { facingMode: "environment" },
-            config,
-            (decodedText, decodedResult) => showModal(decodedText),
-        );
+        startScanner();
     }
 }
 
