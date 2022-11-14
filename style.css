@@ -9,7 +9,8 @@ body {
     background-color: lightgrey;
 }
 
-#qr-reader {
+#qr-reader,
+video {
     display: block;
     width: 100vw;
     height: 100vw;
