@@ -21,9 +21,10 @@ function showModal(decodedText) {
         startScanner();
         return;
     }
-    contact.classList.add("d-none");
+
     loader.classList.remove("d-none");
     modal.classList.remove("d-none");
+
     var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
@@ -31,12 +32,15 @@ function showModal(decodedText) {
         if (xhr.readyState === 4) {
             let data = JSON.parse(xhr.responseText);
             loader.classList.add("d-none");
-            contact.classList.remove("d-none");
+            console.log(typeof data.receipt_link);
             vendID.innerHTML = data.vending_id;
-            if (data.receipt_link == null) {
+            if (data.receipt_link === undefined) {
+                console.log('ddd');
+                empty.classList.add("d-flex");
                 link.classList.add("d-none");
             } else {
                 empty.classList.add("d-none");
+                link.classList.add("d-flex");
                 receipt.href = data.receipt_link;
             }
         }

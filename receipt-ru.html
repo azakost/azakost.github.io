@@ -69,7 +69,7 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-4" id="exampleModalFullscreenLabel">Контакты партнера</h1>
+                    <h1 class="modal-title fs-4" id="exampleModalFullscreenLabel">Результат запроса</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         onclick="closeModal()"></button>
                 </div>
@@ -81,20 +81,20 @@
                         </div>
                     </div>
 
-                    <div class="d-none" id="contacts">
-                        <h5>Аппарат №<span id="vending_id"></span></h5>
-                        <br>
-                        <div id="link_block">
-                            <a href="" id="receipt" class="btn btn-success">
-                                <box-icon name='receipt'></box-icon>
-                                Посмотреть чек
-                            </a>
-                        </div>
-                        <div id="empty_block">
-                            <p>За последние 30 минут чеки не пробивались!</p>
-                        </div>
 
+                    <h5>Аппарат №<span id="vending_id"></span></h5>
+                    <br>
+                    <div id="link_block">
+                        <a href="" id="receipt" class="btn btn-success">
+                            <box-icon name='receipt'></box-icon>
+                            Посмотреть чек
+                        </a>
                     </div>
+                    <div id="empty_block">
+                        <p>За последние 30 минут чеки не пробивались!</p>
+                    </div>
+
+
 
 
                 </div>
@@ -105,7 +105,6 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="/script-rec.js"></script>
 </body>

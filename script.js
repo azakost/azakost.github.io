@@ -21,10 +21,12 @@ function showModal(decodedText) {
         startScanner();
         return;
     }
+
     contact.classList.add("d-none");
     loader.classList.remove("d-none");
     modal.classList.remove("d-none");
     var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
+
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
     xhr.onreadystatechange = function () {
