@@ -4,7 +4,7 @@ body {
 
 .box {
     display: block;
-    height: 100vw;
+
     width: 100vw;
     background-color: lightgrey;
 }
@@ -13,7 +13,7 @@ body {
 video {
     display: block;
     width: 100vw;
-    height: 100vw;
+
     z-index: 1;
 }
 
