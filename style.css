@@ -10,11 +10,8 @@ body {
     background-color: lightgrey;
 }
 
-video {
+#qr-reader {
     display: block;
-    width: 80vw;
-    height: 80vw;
-    border: 2px solid red;
-    border-radius: 25px;
-
+    width: 100vw;
+    height: 100vw;
 }
