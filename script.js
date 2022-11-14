@@ -19,6 +19,7 @@ function showModal(decodedText) {
     loader.classList.remove("d-none");
     modal.classList.remove("d-none");
     var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
+    alert(uuid);
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
     xhr.onreadystatechange = function () {
