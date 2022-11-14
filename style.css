@@ -4,17 +4,16 @@ body {
 
 .box {
     display: block;
-
+    height: 100vw;
     width: 100vw;
     background-color: lightgrey;
+    overflow: hidden;
 }
 
 #qr-reader,
 video {
-    display: block;
+    display: absolute !important;
     width: 100vw;
-
-    z-index: 1;
 }
 
 .accordion {
