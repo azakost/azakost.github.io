@@ -17,7 +17,7 @@ let config = {
 function showModal(decodedText) {
     contact.classList.add("d-none");
     loader.classList.remove("d-none");
-    modal.classList.add("show");
+    modal.classList.remove("d-none");
     var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
@@ -38,19 +38,17 @@ function showModal(decodedText) {
 }
 
 function closeModal() {
-    modal.classList.remove("show");
+    modal.classList.add("d-none");
 }
 
-
-
-
-function onScanSuccess(decodedText, decodedResult) {
-    showModal(decodedText);
-}
 
 function onPermissionSuccess(devices) {
     if (devices && devices.length) {
-        html5QrCode.start({ facingMode: "environment" }, config, onScanSuccess);
+        html5QrCode.start(
+            { facingMode: "environment" },
+            config,
+            (decodedText, decodedResult) => showModal(decodedText),
+        );
     }
 }
 

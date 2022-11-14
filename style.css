@@ -19,10 +19,6 @@ video {
     width: 100vw;
 }
 
-.accordion {
-    z-index: 999;
-}
-
 i {
     font-size: 18px;
 }
