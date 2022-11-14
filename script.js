@@ -16,6 +16,11 @@ let config = {
 
 function showModal(decodedText) {
     html5QrCode.stop();
+    if (!decodedText.includes('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=')) {
+        alert('Неверный QR-код!');
+        startScanner();
+        return;
+    }
     contact.classList.add("d-none");
     loader.classList.remove("d-none");
     modal.classList.remove("d-none");
@@ -30,10 +35,12 @@ function showModal(decodedText) {
             vendID.innerHTML = data.vending_id;
             phone.href = "tel:+" + data.support_phone;
             whatsapp.href = "https://wa.me/" + data.support_phone;
-        } else {
-            alert('Неверный QR-код!');
         }
     };
+    xhr.onerror = function () {
+        alert('Сервис недоступен, попробуйте позже!');
+        closeModal();
+    }
     xhr.send();
 }
 
