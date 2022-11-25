@@ -1,42 +1,15 @@
-const html5QrCode = new Html5Qrcode("qr-reader");
 
-var modal = document.getElementById("modal");
-var vendID = document.getElementById("vending_id");
-var phone = document.getElementById("phone");
-var whatsapp = document.getElementById("whatsapp");
-var contact = document.getElementById("contacts");
-var loader = document.getElementById("loader");
-
-let config = {
-    fps: 10,
-    rememberLastUsedCamera: true,
-    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-};
-
-
-function showModal(decodedText) {
-    html5QrCode.stop();
-    if (!decodedText.includes('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=')) {
-        alert('Неверный QR-код!');
-        startScanner();
-        return;
-    }
-
-    contact.classList.add("d-none");
-    loader.classList.remove("d-none");
-    modal.classList.remove("d-none");
-    var uuid = decodedText.replaceAll('https://kaspi.kz/pay/Smartvend?service_id=4680&7363=', '');
-
+function generate() {
+    var link = $("#link").val();
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://partner.smartvend.kz/api/partner/support/" + uuid + "/");
+    xhr.open("GET", link);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             let data = JSON.parse(xhr.responseText);
-            loader.classList.add("d-none");
-            contact.classList.remove("d-none");
-            vendID.innerHTML = data.vending_id;
-            phone.href = "tel:+" + data.support_phone;
-            whatsapp.href = "https://wa.me/" + data.support_phone;
+            data.forEach((x) => {
+                printSvg(x.ID, x.Description);
+            });
+
         }
     };
     xhr.onerror = function () {
@@ -44,31 +17,32 @@ function showModal(decodedText) {
         closeModal();
     }
     xhr.send();
-}
 
-function startScanner() {
-    html5QrCode.start(
-        { facingMode: "environment" },
-        config,
-        (decodedText, decodedResult) => showModal(decodedText),
-    );
-}
 
-function closeModal() {
-    startScanner();
-    modal.classList.add("d-none");
 }
 
 
-function onPermissionSuccess(devices) {
-    if (devices && devices.length) {
-        startScanner();
-    }
+
+function printSvg(uuid, id) {
+    $.get('template.svg', function (html) {
+        var template = $(html.rootElement);
+        var svg = new QRCode({
+            content: "https://kaspi.kz/pay/Smartvend?service_id=4680&7363=" + uuid,
+            width: 205,
+            height: 205,
+            padding: 0,
+        }).svg();
+        var qr = $(svg)[2];
+        qr.setAttribute("viewBox", "-67 -160 340 485");
+        qr.setAttribute("width", "340");
+        qr.setAttribute("height", "485");
+        var sign = $(template[0]).children();
+        sign[0].innerHTML = "SmartVend.kz";
+        sign[1].innerHTML = "Аппарат №" + id;
+        $('#qr-codes').append(template.prepend(qr));
+    });
 }
 
-function onPermissionError(error) {
-    alert(error);
-}
 
-Html5Qrcode.getCameras().then(onPermissionSuccess, onPermissionError);
+
 

@@ -1,24 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
-
-body {
-    margin: 0px;
-    font-family: 'Open Sans', sans-serif;
+.input-group {
+    padding: 24px;
 }
 
-.box {
-    display: block;
-    height: 100vw;
-    width: 100vw;
-    background-color: lightgrey;
-    overflow: hidden;
+@media print {
+
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
 }
 
-#qr-reader,
-video {
-    display: absolute !important;
-    width: 100vw;
+#qr-codes {
+    padding: 16px;
 }
 
-i {
-    font-size: 18px;
+#qr-codes>svg {
+    margin: 8px;
 }
