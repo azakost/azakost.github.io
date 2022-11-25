@@ -6,18 +6,15 @@ function generate() {
         if (xhr.readyState === 4) {
             let data = JSON.parse(xhr.responseText);
             data.forEach((x) => {
-                printSvg(x.ID, x.Description);
+                printSvg(x.ID, x['Internal ID']);
             });
         }
     };
     xhr.onerror = function () {
         alert('Сервис недоступен, попробуйте позже!');
-        closeModal();
     }
     xhr.send();
 }
-
-
 
 function printSvg(uuid, id) {
     $.get('template.svg', function (html) {
