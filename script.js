@@ -1,4 +1,3 @@
-
 function generate() {
     var link = $("#link").val();
     let xhr = new XMLHttpRequest();
@@ -9,7 +8,6 @@ function generate() {
             data.forEach((x) => {
                 printSvg(x.ID, x.Description);
             });
-
         }
     };
     xhr.onerror = function () {
@@ -17,8 +15,6 @@ function generate() {
         closeModal();
     }
     xhr.send();
-
-
 }
 
 
