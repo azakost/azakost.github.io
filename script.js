@@ -21,12 +21,12 @@ function printSvg(uuid, id) {
         var template = $(html.rootElement);
         var qr = QRCode({
             msg: "https://kaspi.kz/pay/Smartvend?service_id=4680&7363=" + uuid,
-            dim: 205,
+            dim: 256,
             pad: 0,
         });
-        qr.setAttribute("viewBox", "-13 -31.5 100 100");
-        qr.setAttribute("width", "505");
-        qr.setAttribute("height", "505");
+        qr.setAttribute("viewBox", "-11 -28 100 100");
+        qr.setAttribute("width", "600");
+        qr.setAttribute("height", "600");
         var sign = $(template[0]).children();
         sign[0].innerHTML = "SmartVend.kz";
         sign[1].innerHTML = "Аппарат №" + id;
