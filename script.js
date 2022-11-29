@@ -28,9 +28,10 @@ function printSvg(uuid, id) {
         qr.setAttribute("width", "600");
         qr.setAttribute("height", "600");
         var sign = $(template[0]).children();
-        sign[0].innerHTML = "SmartVend.kz";
-        sign[1].innerHTML = "Аппарат №" + id;
-        $('#qr-codes').append(template.prepend(qr));
+        sign[1].innerHTML = "SmartVend.kz";
+        sign[2].innerHTML = "Аппарат №" + id;
+        template.children()[0].after(qr);
+        $('#qr-codes').append(template);
     });
 }
 
