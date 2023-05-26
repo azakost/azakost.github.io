@@ -1,7 +1,11 @@
 
 $.smartbanner({
     title: 'SmartVend',
-    author: 'smart devs',
+    author: 'Ваш личный кабинет',
+    daysHidden: 0,
+    hideOnInstall: false,
+    force: 'android',
+    icon: 'app_icon.png',
 });
 
 
