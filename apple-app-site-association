@@ -1,0 +1,13 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "W35B5A3S86.kz.smartvend.app",
+                "paths": [
+                    "*"
+                ]
+            }
+        ]
+    }
+}
