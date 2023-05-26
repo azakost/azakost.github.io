@@ -6,6 +6,9 @@ $.smartbanner({
     hideOnInstall: false,
     force: 'android',
     icon: 'app_icon.png',
+    button: 'Установить',
+    price: 'Скачайте',
+    inGooglePlay: 'из Google Play',
 });
 
 
