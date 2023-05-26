@@ -1,3 +1,37 @@
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Отменяем стандартное поведение браузера
+    event.preventDefault();
+
+    // Сохраняем событие для отображения позже
+    const deferredPrompt = event;
+
+    // Отображаем пользователю кнопку или другой элемент, чтобы активировать окно предложения установки
+    // Например, показываем кнопку "Установить приложение"
+    installButton.addEventListener('click', () => {
+        // Вызываем отложенное событие, чтобы показать нативное окно предложения установки
+        deferredPrompt.prompt();
+
+        // Ожидаем ответа пользователя
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Пользователь принял предложение установки');
+            } else {
+                console.log('Пользователь отклонил предложение установки');
+            }
+
+            // Очищаем отложенное событие
+            deferredPrompt = null;
+        });
+    });
+
+    // Показываем кнопку или другой элемент для активации окна предложения установки
+    installButton.style.display = 'block';
+});
+
+
+
+
+
 function generate() {
     var link = $("#link").val();
     let xhr = new XMLHttpRequest();
