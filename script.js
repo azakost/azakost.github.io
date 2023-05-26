@@ -1,16 +1,25 @@
+$(document).ready(function () {
 
-$.smartbanner({
-    title: 'SmartVend',
-    author: 'Ваш личный кабинет',
-    daysHidden: 0,
-    hideOnInstall: false,
-    force: 'android',
-    icon: 'app_icon.png',
-    button: 'Установить',
-    price: 'Скачайте',
-    inGooglePlay: 'из Google Play',
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    // Если это iOS, прерываем инициализацию плагина
+    if (isIOS) {
+        return;
+    }
+
+    // Инициализация плагина для остальных платформ
+    $.smartbanner({
+        title: 'SmartVend',
+        author: 'Ваш личный кабинет',
+        daysHidden: 0,
+        hideOnInstall: false,
+        force: 'android',
+        icon: 'app_icon.png',
+        button: 'Установить',
+        price: 'Скачайте',
+        inGooglePlay: 'из Google Play',
+    });
 });
-
 
 function generate() {
     var link = $("#link").val();
