@@ -1,5 +1,8 @@
 
-
+$.smartbanner({
+    title: 'SmartVend',
+    author: 'smart devs',
+});
 
 
 function generate() {
