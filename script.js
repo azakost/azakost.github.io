@@ -44,7 +44,7 @@ function printSvg(uuid, id) {
         var template = $(html.rootElement);
         var qr = QRCode({
             msg: "https://smartvend.kz/pos/" + uuid,
-            dim: 256,
+            dim: 512,
             pad: 0,
         });
         qr.setAttribute("viewBox", "-11 -28 100 100");
