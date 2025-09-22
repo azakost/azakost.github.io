@@ -46,6 +46,7 @@ function printSvg(uuid, id) {
             msg: "https://smartvend.kz/pos/" + uuid,
             dim: 512,
             pad: 0,
+            correctLevel : QRCode.CorrectLevel.H
         });
         qr.setAttribute("viewBox", "-9 -23 100 100");
         qr.setAttribute("width", "738");
