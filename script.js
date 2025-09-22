@@ -48,9 +48,9 @@ function printSvg(uuid, id) {
             pad: 0,
             ecl: "H"
         });
-        qr.setAttribute("viewBox", "-9 -23 100 100");
-        qr.setAttribute("width", "738");
-        qr.setAttribute("height", "738");
+        qr.setAttribute("viewBox", "-12 -32 100 100");
+        qr.setAttribute("width", "540");
+        qr.setAttribute("height", "540");
         var sign = $(template[0]).children();
         sign[1].innerHTML = "SmartVend.kz";
         sign[2].innerHTML = "Аппарат №" + id;
