@@ -1,0 +1,23 @@
+.input-group {
+    padding: 24px;
+}
+
+@media print {
+
+    .no-print,
+    .no-print * {
+        display: none !important;
+    }
+}
+
+#qr-codes {
+    padding: 16px;
+}
+
+#qr-codes>svg {
+    margin: 8px;
+}
+
+.body {
+    margin: 50px;
+}
