@@ -20,7 +20,7 @@ function printSvg(uuid, id) {
     $.get('template.svg', function (html) {
         var template = $(html.rootElement);
         var qr = QRCode({
-            msg: "https://smartvend.kz/pos/" + uuid,
+            msg: "https://kaspi.kz/pay/Smartvend?service_id=4680&7363=" + uuid,
             dim: 512,
             pad: 0,
             ecl: "H"
