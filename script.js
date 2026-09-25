@@ -35,7 +35,8 @@ function printSvg(uuid, id) {
 
         function addText(y, size, weight, color, text) {
             var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            t.setAttribute("x", "50%");
+            // Абсолютная координата, а не "50%": проценты не переживают экспорт в PDF.
+            t.setAttribute("x", CARD_W / 2);
             t.setAttribute("y", y);
             t.setAttribute("text-anchor", "middle");
             t.setAttribute("fill", color);
@@ -120,6 +121,76 @@ function downloadSvg() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+// Шрифт для PDF. Стандартные шрифты PDF не знают «№» и кириллицу, поэтому
+// вшиваем Arimo — он метрически совпадает с Arial, так что текст в PDF встаёт
+// ровно так же, как на экране. Регистрируем его под именем "Arial", чтобы
+// font-family из карточки нашёл его без изменений.
+var PDF_FONTS = [
+    { file: 'arimo-regular.ttf', style: 'normal' },
+    { file: 'arimo-bold.ttf', style: 'bold' }
+];
+var pdfFontsPromise = null;
+
+function loadPdfFonts() {
+    if (!pdfFontsPromise) {
+        pdfFontsPromise = Promise.all(PDF_FONTS.map(function (f) {
+            return fetch(f.file).then(function (r) {
+                if (!r.ok) throw new Error(f.file + ' — ' + r.status);
+                return r.arrayBuffer();
+            }).then(function (buf) {
+                var bytes = new Uint8Array(buf), bin = '';
+                for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+                return { file: f.file, style: f.style, data: btoa(bin) };
+            });
+        })).catch(function (e) {
+            pdfFontsPromise = null;   // дать повторить попытку после сбоя сети
+            throw e;
+        });
+    }
+    return pdfFontsPromise;
+}
+
+// Экспорт для CorelDRAW: векторный PDF, одна карточка на страницу
+// в натуральном размере 378x540 pt (133x190 мм).
+// Настоящий .cdr — закрытый бинарный формат Corel, записать его может только
+// сам CorelDRAW; PDF он открывает как редактируемые кривые, дальше при
+// необходимости «Файл → Сохранить как → CDR».
+async function downloadPdf() {
+    var cards = document.querySelectorAll('#qr-codes > svg');
+    if (!cards.length) {
+        alert('Сначала сгенерируйте QR-коды!');
+        return;
+    }
+    var btn = document.getElementById('pdf-btn');
+    var label = btn.textContent;
+    btn.disabled = true;
+    try {
+        var fonts = await loadPdfFonts();
+        var doc = new window.jspdf.jsPDF({
+            unit: 'pt',
+            format: [CARD_W, CARD_H],
+            orientation: 'portrait',
+            compress: true
+        });
+        fonts.forEach(function (f) {
+            doc.addFileToVFS(f.file, f.data);
+            doc.addFont(f.file, 'Arial', f.style);
+        });
+        for (var i = 0; i < cards.length; i++) {
+            btn.textContent = 'Готовим ' + (i + 1) + '/' + cards.length + '...';
+            if (i) doc.addPage([CARD_W, CARD_H], 'portrait');
+            await doc.svg(cards[i], { x: 0, y: 0, width: CARD_W, height: CARD_H });
+        }
+        doc.save('qr-codes.pdf');
+    } catch (e) {
+        alert('Не удалось собрать PDF: ' + e.message);
+        throw e;
+    } finally {
+        btn.textContent = label;
+        btn.disabled = false;
+    }
 }
 
 
